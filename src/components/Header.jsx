@@ -1,0 +1,28 @@
+import { use } from "react";
+
+import Logo from "../assets/logo.jpg";
+import Button from "./UI/Button";
+import { CartContext } from "../store/cart-context";
+import { UserProgressContext } from "../store/user-progress-context";
+
+export default function Header() {
+  const { cart } = use(CartContext);
+  const { showCart } = use(UserProgressContext);
+
+  return (
+    <header id="main-header">
+      <div id="title">
+        <h1>Dummy Restaurant</h1>
+        <img src={Logo} alt="A restaurant logo" />
+      </div>
+      <nav>
+        <Button
+          disabled={cart.length === 0}
+          onClick={showCart}
+          textButton
+          className="text-button"
+        >{`Cart (${cart.length})`}</Button>
+      </nav>
+    </header>
+  );
+}
