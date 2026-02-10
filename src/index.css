@@ -66,19 +66,15 @@ body {
   background: linear-gradient(#1a1303, #0b0902);
   border-radius: 0 6px 6px 0;
   z-index: 1;
-  /* animation: slide-left 0.3s ease-out forwards; */
+  animation: slide-left 0.3s ease-out forwards;
 }
-
-/* .hide {
-  display: none;
-} */
 
 #side-bar-menu-icon {
   cursor: pointer;
 }
 
 .side-bar-container {
-  margin: 3rem 1rem;
+  margin: 4rem 1rem;
   text-align: center;
   list-style-type: none;
   padding: 0;
@@ -87,19 +83,27 @@ body {
 .side-bar-item {
   text-align: center;
   cursor: pointer;
-  color: #ffc404;
   width: 100%;
   padding: 1px 0;
+  margin-bottom: 2.5rem;
   font-size: 1.2rem;
-  margin-bottom: 2rem;
 }
 
-.side-bar-item:hover,
-.side-bar-item:active {
+.side-bar-item a {
+  text-decoration: none;
+  color: #ffc404;
+  display: flex;
+  justify-content: center;
+}
+
+.side-bar-item a:hover,
+.side-bar-item a:active {
   /* text-shadow: 1px 1px 7px #d3a611; */
-  background-color: #ffc404;
+  /* background-color: #ffc404;
+  opacity: 0.9;
   border-radius: 4px;
-  color: #1f1a09;
+  color: #1f1a09; */
+  transform: scale(1.1);
 }
 
 .active {
@@ -121,7 +125,44 @@ h1 {
   padding-top: 10rem;
 }
 
-.meals {
+#orders {
+  width: 90%;
+  list-style: none;
+  margin: 2rem auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-item {
+  background-color: #1d1a16;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+  padding: 1rem 2rem
+}
+
+.order-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-section h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.75rem 0;
+}
+
+.order-section p {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0.5rem 0;
+}
+
+#meals {
   width: 90%;
   max-width: 70rem;
   list-style: none;
@@ -132,13 +173,13 @@ h1 {
   gap: 1rem;
 }
 
-.meals-animate-lr {
-  animation: slide-left-meals 0.3s ease-out forwards;
-  margin: 2rem 20%;
+.animate-lr {
+  animation: slide-left-content 0.3s ease-out forwards;
+  margin: 2rem 20% !important;
 }
 
-.meals-animate-rl {
-  animation: slide-right-meals 0.3s ease-out forwards;
+.animate-rl {
+  animation: slide-right-content 0.3s ease-out forwards;
 }
 
 .meal-item {
@@ -375,7 +416,7 @@ h1 {
   }
 }
 
-@keyframes slide-left-meals {
+@keyframes slide-left-content {
   from {
     opacity: 0;
     transform: translateX(-20%);
@@ -387,7 +428,7 @@ h1 {
   }
 }
 
-@keyframes slide-right-meals {
+@keyframes slide-right-content {
   from {
     opacity: 0;
     transform: translateX(10rem);

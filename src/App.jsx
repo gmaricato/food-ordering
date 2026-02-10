@@ -2,10 +2,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import CartContextProvider from "./store/cart-context";
 import UserActionsContextProvider from "./store/user-actions-context";
-import HomePage from "../pages/Home";
-import RootLayout from "../pages/Root";
-import ErrorPage from "../pages/Error";
-import OrdersPage from "../pages/Orders";
+import HomePage from "./pages/Home";
+import RootLayout from "./pages/Root";
+import ErrorPage from "./pages/Error";
+import OrdersPage from "./pages/Orders";
 
 export const router = createBrowserRouter([
   {
@@ -13,13 +13,11 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      // { path: "", element: <HomePage />, id: "Home" },
-      // works the same as above (index: true = path: "")
-      { index: true, element: <HomePage />, id: "Home" },
+      { index: true, element: <HomePage />, id: "Meals" },
       {
         path: "orders",
         element: <OrdersPage />,
-        id: "orders",
+        id: "Orders",
       },
     ],
   },
@@ -28,7 +26,6 @@ function App() {
   return (
     <UserActionsContextProvider>
       <CartContextProvider>
-        {/* <MainContainer /> */}
         <RouterProvider router={router} />
       </CartContextProvider>
     </UserActionsContextProvider>

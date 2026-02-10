@@ -26,7 +26,8 @@ export function Meals() {
 
   return (
     <ul
-      className={isSideBarVisible ? "meals meals-animate-lr" : "meals meals-animate-rl"}
+      id="meals"
+      style={{ margin: `2rem ${isSideBarVisible ? "20%" : "auto"}` }}
     >
       {meals.map((meal) => (
         <MealItem {...meal} key={meal.id} />

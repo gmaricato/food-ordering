@@ -3,46 +3,39 @@ import { useContext, useEffect } from "react";
 import Menu from "../assets/menu.png";
 import Close from "../assets/close.png";
 import { UserActionContext } from "../store/user-actions-context";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { router } from "../App";
 
 export default function SideBar() {
   const { isSideBarVisible, toggleSideBar } = useContext(UserActionContext);
-
-  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const menuButton = document.getElementById("side-bar-menu-icon");
-    const sideBar = document.getElementById("side-bar");
-    console.log(sideBar)
-    const menuButtonSpinning = [
-      { transform: "rotate(0)" },
-      { transform: "rotate(180deg)" },
-    ];
+    let element = document.getElementById("meals");
+    if (location.pathname === "/orders") {
+      element = document.getElementById("orders");
+    }
 
-    const slideSideBar = [
-      { opacity: 0, transform: "translateX(-10rem)" },
-      { opacity: 1, transform: "translateX(0rem)" },
-    ];
-
-    const timing = {
-      duration: 300,
-      iterations: 1,
+    const animateButton = () => {
+      menuButton.animate(
+        [{ transform: "rotate(0)" }, { transform: "rotate(180deg)" }],
+        {
+          duration: 300,
+          iterations: 1,
+        },
+      );
+      let className = "animate-rl";
+      if (!isSideBarVisible) {
+        className = "animate-lr";
+      }
+      element.className = className;
     };
 
-    const animateButton = () => menuButton.animate(menuButtonSpinning, timing);
-    const showSideBarAnimation = () => sideBar?.animate(slideSideBar, timing);
+    menuButton.addEventListener("click", animateButton);
 
-    menuButton.addEventListener("click", () => {
-      animateButton();
-      showSideBarAnimation();
-    });
-
-    return () => menuButton.removeEventListener("click", () => {
-      animateButton();
-      showSideBarAnimation();
-    });
-
-  }, [isSideBarVisible]);
+    return () => menuButton.removeEventListener("click", animateButton);
+  }, [isSideBarVisible, location]);
 
   const src = isSideBarVisible ? Close : Menu;
 
@@ -57,14 +50,23 @@ export default function SideBar() {
         onClick={toggleSideBar}
       />
       {isSideBarVisible && (
-        <div id="side-bar" /*className={!isSideBarVisible ? "hide" : null}*/>
+        <div id="side-bar">
           <ul className="side-bar-container">
-            <li className="side-bar-item">
-              <p onClick={() => navigate("")}>Meals</p>
-            </li>
-            <li className="side-bar-item">
-              <p onClick={() => navigate("orders")}>Your Orders</p>
-            </li>
+            {router.routes.map((mainRoute) =>
+              mainRoute.children.map((route) => (
+                <li key={route.id} className="side-bar-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "active" : undefined
+                    }
+                    to={route.path !== undefined ? "/" + route.path : ""}
+                    end
+                  >
+                    {route.id}
+                  </NavLink>
+                </li>
+              )),
+            )}
           </ul>
         </div>
       )}
