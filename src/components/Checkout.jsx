@@ -4,7 +4,7 @@ import { CartContext } from "../store/cart-context";
 import { currencyFormatter } from "../utils/currency";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { UserProgressContext } from "../store/user-progress-context";
+import { UserActionContext } from "../store/user-actions-context";
 import { useHttp } from "../hooks/useHttp";
 import { useActionState } from "react";
 import Error from "./Error";
@@ -18,7 +18,7 @@ const requestOptions = {
 
 export default function Checkout() {
   const { totalPrice, clearCart, cart } = use(CartContext);
-  const { hideCheckout, progress } = use(UserProgressContext);
+  const { hideCheckout, progress } = use(UserActionContext);
 
   const { data, error, sendRequest, resetError, clearData } = useHttp(
     "/orders",

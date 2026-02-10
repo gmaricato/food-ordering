@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const UserProgressContext = createContext({
+export const UserActionContext = createContext({
   progress: "",
   showCart: () => {},
   hideCart: () => {},
@@ -8,8 +8,13 @@ export const UserProgressContext = createContext({
   hideCheckout: () => {},
 });
 
-function UserProgressContextProvider({ children }) {
+function UserActionsContextProvider({ children }) {
   const [userProgress, setUserProgress] = useState("");
+  const [isSideBarVisible, setIsSideBarVisible] = useState(false);
+
+  function toggleSideBar() {
+    setIsSideBarVisible(prevVal => !prevVal)
+  }
 
   function showCart() {
     setUserProgress("cart");
@@ -29,17 +34,19 @@ function UserProgressContextProvider({ children }) {
 
   const userProgressCtx = {
     progress: userProgress,
+    isSideBarVisible,
     showCart,
     hideCart,
     showCheckout,
     hideCheckout,
+    toggleSideBar,
   };
 
   return (
-    <UserProgressContext.Provider value={userProgressCtx}>
+    <UserActionContext.Provider value={userProgressCtx}>
       {children}
-    </UserProgressContext.Provider>
+    </UserActionContext.Provider>
   );
 }
 
-export default UserProgressContextProvider;
+export default UserActionsContextProvider;

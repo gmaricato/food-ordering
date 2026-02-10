@@ -3,12 +3,12 @@ import { CartContext } from "../store/cart-context";
 import { currencyFormatter } from "../utils/currency";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
-import { UserProgressContext } from "../store/user-progress-context";
+import { UserActionContext } from "../store/user-actions-context";
 import CartItem from "./CartItem";
 
 export default function Cart() {
   const { cart, totalPrice, editItemFromCart } = use(CartContext);
-  const { progress, hideCart, showCheckout } = use(UserProgressContext);
+  const { progress, hideCart, showCheckout } = use(UserActionContext);
 
   return (
     <Modal
