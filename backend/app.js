@@ -21,6 +21,12 @@ app.get('/meals', async (req, res) => {
   res.json(JSON.parse(meals));
 });
 
+app.get('/orders', async (req, res) => {
+  const orders = await fs.readFile('./data/orders.json', 'utf8');
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  res.json(JSON.parse(orders));
+})
+
 app.post('/orders', async (req, res) => {
   const orderData = req.body.order;
 
@@ -70,4 +76,4 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 });
 
-app.listen(3000);
+app.listen(4000);
